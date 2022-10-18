@@ -1,5 +1,5 @@
   //Inicio do código para conferencia de repetção de valores em uma mesma coluna
-funciton checaRepetição() {
+funciton ChecaRepetição() {
   //Importação da planilha
   var id = "Id da planilha"
   var pagina1 = SpreadsheetApp.openById(id).getSheetByName("pagina1");
