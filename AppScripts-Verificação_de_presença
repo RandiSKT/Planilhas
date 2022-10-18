@@ -1,0 +1,51 @@
+function confereDados() {
+  //Importação dos dados das planilha
+  var id = "ID da planilha"
+  var pagina1 = SpreadsheetApp.openById(id).getSheetByName("pagina1"); //nome da página da planilha no caso pagina1
+  var pagina2 = SpreadsheetApp.openById(id).getSheetByName("pagina2");
+  var report = SpreadsheetApp.openById(id).getSheetByName("report"); //é necessario criar uma pagina chama report na planilha para escrever os resulatdos
+
+  //Limpa a planilha de reports
+  report.getRange("A1:A").clear();
+
+
+  //Indica o nome do problema relatado
+  report.getRange("A1").setValue("Valores ausentes")
+
+
+  //Inicio do código para conferencia de presença
+
+  //Coleta dos dados da pagina1 de uma coluna especifica, nesse caso a coluna A
+  var ultima_linha = pagina1.getLastRow();
+  var range = "A1:A" + ultima_linha;
+  var area = pagina1.getRange(range);
+  var dados1 = area.getValues();
+
+  //Coleta dos dados da pagina2
+  var ultima_linha = pagina2.getLastRow();
+  var range = "A1:A" + ultima_linha;
+  var area = pagina2.getRange(range);
+  var dados2 = area.getValues();
+
+  var dados_filtrados = [];
+
+  //Laço que confere a presença dos valores da pagina1 na pagina2
+  for (var i = 0; i < dados1.length; i++) {
+    var texto1 = dados1[i][0];
+    var existe = "";
+    for (var l = 0; l < dados2.length; l++) {
+      if (texto1 == dados2[l][0]) {
+        var existe = "SIM";
+      }
+    }
+    if (existe != "SIM") {
+      dados_filtrados.push(dados1[i]);
+    }
+  }
+
+  //Atualização da aba report colocando os resultados obtidos
+  if (dados_filtrados != "") {
+    report.getRange(2, 1, dados_filtrados.length, dados_filtrados[0].length).setValues(dados_filtrados);
+    var ultima_linha = report.getLastRow();
+    report.getRange("A1:A" + ultima_linha).setBackground("#ffff00")
+  }
