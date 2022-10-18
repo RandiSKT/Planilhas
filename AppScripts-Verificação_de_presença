@@ -49,3 +49,4 @@ function confereDados() {
     var ultima_linha = report.getLastRow();
     report.getRange("A1:A" + ultima_linha).setBackground("#ffff00")
   }
+}
