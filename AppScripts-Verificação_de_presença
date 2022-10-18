@@ -1,4 +1,4 @@
-function confereDados() {
+function ConfereDados() {
   //Importação dos dados das planilha
   var id = "ID da planilha"
   var pagina1 = SpreadsheetApp.openById(id).getSheetByName("pagina1"); //nome da página da planilha no caso pagina1
