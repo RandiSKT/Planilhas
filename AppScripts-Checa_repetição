@@ -1,0 +1,42 @@
+  //Inicio do código para conferencia de repetção de valores em uma mesma coluna
+funciton checaRepetição() {
+  //Importação da planilha
+  var id = "Id da planilha"
+  var pagina1 = SpreadsheetApp.openById(id).getSheetByName("pagina1");
+  var report = SpreadsheetApp.openById(id).getSheetByName("report");
+  
+  //Coleta dos dados da coluna
+  var ultima_linha = pagina1.getLastRow();
+  var range = "A1:A" + ultima_linha;
+  var area = pagina1.getRange(range);
+  var dados = area.getValues();
+
+  //Declaração de variaveis
+  var dados_duplicados = [];
+  var x = 0
+  
+  //Laço que confere a repetição dos dados
+  for (var e = 0; e < dados.length; e) {
+    var dados1 = [];
+    dados1.push(dados[e][0])
+    dados.splice(e, 1)
+    var repete = ""
+    for (var u = 0; u < dados.length; u++) {
+      if (dados1 == dados[u][0]) {
+        var repete = "SIM";
+      }
+    }
+
+    if (repete == "SIM") {
+      dados_duplicados.push(dados1);
+    }
+    x += 1
+  }
+
+  //Atualização da aba report colocando os resultados obtidos
+  if (dados_duplicados != "") {
+    report.getRange(2, 2, dados_duplicados.length, dados_duplicados[0].length).setValues(dados_duplicados);
+    var ultima_linha = report.getLastRow();
+    report.getRange("B1:B" + ultima_linha).setBackground("#00ff00")
+  }
+}
