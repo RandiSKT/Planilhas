@@ -5,7 +5,7 @@ funciton checaRepetição() {
   var pagina1 = SpreadsheetApp.openById(id).getSheetByName("pagina1");
   var report = SpreadsheetApp.openById(id).getSheetByName("report");
   
-  //Coleta dos dados da coluna
+  //Coleta dos dados da coluna, no caso a coluna A
   var ultima_linha = pagina1.getLastRow();
   var range = "A1:A" + ultima_linha;
   var area = pagina1.getRange(range);
